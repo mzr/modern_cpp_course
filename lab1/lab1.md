@@ -23,4 +23,12 @@ Zdefiniuj silnie stypizowany typ wyliczeniowy dla kilku wybranych
 imion męskich i żeńskich, którego elementy będa typu uint\_16.
 
 ## Zadanie 5 (3 pkt).
-...
+Zdefiniuj funkcję rekurencyjną, która będzie automatycznie dedukować
+typ wyniku, a która będzie wyznaczała n-tą liczbę Lucasa.
+
+## Zadanie 6 (2 pkt).
+Napisz program, który dla podanych współczynników równania 
+kwadratowego wyliczy wyróżnik tego równania (często oznaczany 
+symbolem Δ) i w zależności od jego wartości wypisze miejsca zerowe. 
+Użyj do tego celu instrukcji warunkowej z lokalnym inicjalizatorem 
+dla wyróżnika.
