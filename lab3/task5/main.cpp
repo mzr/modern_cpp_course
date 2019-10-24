@@ -8,54 +8,110 @@
  */
 
 #include <random>
+#include <future>
 #include <iostream>
 #include <chrono>
-
-double arr10[10][10];
-double arr100[100][100];
-double arr1000[1000][1000];
-double arr10000[10000][10000];
-double arr_results[10000][10000];
+#include <array>
+#include <memory>
+#include <thread>
 
 using namespace std;
 
-void fill_random(double **arr, int n){
+
+template <size_t N>
+using array2d = array<array<double, N>, N>;
+
+template <size_t N>
+void fill_random(array2d<N> &arr){
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.5, 2.0);
 
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
+    for(int i=0; i<arr.size(); i++){
+        for(int j=0; j<arr.size(); j++){
             arr[i][j] = dis(gen);
         }
     }
 }
 
-void square(double **arr, int n){
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            double tmp = 0;
-            for(int k=0; k<n; k++){
-                tmp += arr[k][j] * arr[i][k];
-            }
-            arr[i][j] = tmp;
+template<size_t N>
+void fill_random_it(array2d<N> &arr){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0.5, 2.0);
+
+    for( auto &subarr : arr){
+        for( auto &el : subarr ){
+            el = dis(gen);
         }
     }
 }
 
-auto square_measure(double **arr, int n){
+template<size_t N>
+void fill_random_it2(shared_ptr<array2d<N>> arr_ptr){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0.5, 2.0);
+
+    for( auto &subarr : *arr_ptr){
+        for( auto &el : subarr ){
+            el = dis(gen);
+        }
+    }
+}
+
+template <size_t N>
+auto square_measure(shared_ptr<array2d<N>> arr_ptr){
+    auto tmp_arr = make_shared<array2d<N>>();
+
     auto start = std::chrono::high_resolution_clock::now();
 
-    square(arr, n);
+    for(int i=0; i<arr_ptr->size(); i++){
+        for(int j=0; j<arr_ptr->size(); j++){
+            double tmp = 0;
+            for(int k=0; k<arr_ptr->size(); k++){
+                tmp += (*arr_ptr)[k][j] * (*arr_ptr)[i][k];
+            }
+            (*tmp_arr)[i][j] = tmp;
+        }
+    }
+
+    arr_ptr = move(tmp_arr);
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start;
-    std::cout << "Time: " << diff.count() << "\n";
+
     return diff;
 }
 
+
+template<size_t N>
+chrono::duration<double> time(){
+//auto time(){ // czemu nie moge tu auto?!?!?!
+    auto arrptr = make_shared<array2d<N>>();
+    fill_random_it2(arrptr);
+    auto time_elapsed = square_measure(arrptr);
+    return time_elapsed;
+}
+
+
 int main(){
-    square_measure((double**)arr1000, 1000);
+    
+
+    auto a1 = async(std::launch::async, &time<100>);
+    auto a2 = async(std::launch::async, &time<100>);
+    auto a3 = async(std::launch::async, &time<1000>);
+    auto a4 = async(std::launch::async, &time<10000>);
+
+//    a1.wait();
+//    a2.wait();
+//    a3.wait();
+//    a4.wait();
+
+    cout << "10x10: " << a1.get().count() << "\n";
+    cout << "100x100: " << a2.get().count() << "\n";
+    cout << "1000x1000: " << a3.get().count() << "\n";
+    cout << "10000x10000: " << a4.get().count() << "\n";
 
     return 0;
 }
