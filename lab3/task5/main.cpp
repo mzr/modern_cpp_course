@@ -17,7 +17,6 @@
 
 using namespace std;
 
-
 template <size_t N>
 using array2d = array<array<double, N>, N>;
 
@@ -86,14 +85,13 @@ auto square_measure(shared_ptr<array2d<N>> arr_ptr){
 
 
 template<size_t N>
-chrono::duration<double> time(){
-//auto time(){ // czemu nie moge tu auto?!?!?!
+//chrono::duration<double> time(){
+auto time(){ // czemu nie moge tu auto w gcc?!?!?! w clang++ dziala
     auto arrptr = make_shared<array2d<N>>();
     fill_random_it2(arrptr);
     auto time_elapsed = square_measure(arrptr);
     return time_elapsed;
 }
-
 
 int main(){
     
@@ -102,6 +100,7 @@ int main(){
     auto a2 = async(std::launch::async, &time<100>);
     auto a3 = async(std::launch::async, &time<1000>);
     auto a4 = async(std::launch::async, &time<10000>);
+
 
 //    a1.wait();
 //    a2.wait();
