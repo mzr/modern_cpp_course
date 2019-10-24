@@ -35,7 +35,7 @@
 
 
 %:include <iostream> // c++2a ok
-//??=include <iostream> //c++14 ok, c++17 nie ok
+//??=include <iostream> //c++14 ok, c++17 nie ok ale -trigraphs
 
 int main(){
     int a = 3 bitand 1; // c++2a ok

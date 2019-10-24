@@ -7,6 +7,8 @@
  * konwersji za pomocą cechy typowej is_convertible)
  */
 
+#include <type_traits>
+
 int main(){
 
 
