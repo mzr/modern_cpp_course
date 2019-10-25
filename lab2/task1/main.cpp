@@ -55,13 +55,13 @@ int nth_prime(int n){
 }
 
 
-void mul_arr(std::unique_ptr<Counter[]> arr, int size, int m, int nth){
+auto mul_arr(std::unique_ptr<Counter[]> arr, int size, int m, int nth){
     if(m == 0)
-        return;
+        return arr;
     
     int index = rand() % size;
     arr[index].value *= nth_prime(nth);
-    mul_arr(arr, size, m-1, nth+1); 
+    return mul_arr(std::move(arr), size, m-1, nth+1); 
 }
 
 
@@ -72,7 +72,7 @@ int main(){
     
     auto arr = std::make_unique<Counter[]>(n);
 
-    mul_arr(arr, n, m, 0);
+    arr = mul_arr(std::move(arr), n, m, 0);
     
     for(int i=0; i<n; i++){
         std::cout << arr[i].value << " ";
