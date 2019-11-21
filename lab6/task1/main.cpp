@@ -6,12 +6,22 @@
 #include <algorithm>
 #include <vector>
 #include <array>
+#include <experimental/random>
 
 using namespace std;
 
 template <typename C>
 void permute_random(C &c){
     random_shuffle(c.begin(), c.end()); 
+}
+
+// Fisher–Yates shuffle
+template <typename C>
+void permute_random2(C &c){
+    for(int i=c.size()-1; i >= 1; i--){
+        int j = experimental::randint(0, i);
+        swap(c[j], c[i]);
+    }
 }
 
 template <typename C>
@@ -27,6 +37,8 @@ int main(){
     permute_random(a); 
     cout << "\n";
     print_container(a);
+
+
 
     return 0;
 }
