@@ -14,6 +14,8 @@
 #include <set>
 #include <unordered_map>
 #include <utility>
+#include <vector>
+#include <list>
 
 
 using namespace std;
@@ -26,52 +28,45 @@ class Graph {
     
     using vertex_num = int;
     using edge_weight = int;
-    using vertex_name string;
+    using vertex_name = string;
     
-    template <typename T, typename K>
-    using um = unordered_map<T, K>; 
+    using neighbours = list<vertex_num>;
 
     using vertex = pair<
-        vertex_name*, // * or & ?
-        um<vertex_num, edge_weight>
+        vertex_name,
+        neighbours
     >;
-    // name? ptr to name_to_num_map?
 
-    using adj_map = unordered_map<int, vertex>;
-    using name_to_num_map = unordered_map<string, vertex_num>;
+    using name_to_num_t = unordered_map<string, vertex_num>;
+    using adj_list_t = vector<vertex>;
 
-    name_to_num_map *name_to_num;
-    adj_map *adj;
-    
 public:
+
+    name_to_num_t *name_to_num;
+    adj_list_t *adj;
     
     Graph() {
-        name_to_num = new name_to_num_map();
-        adj = new adj_map();
+        name_to_num = new name_to_num_t();
+        adj = new adj_list_t();
     }
 
-    add_vertex(
 
     Graph(const Graph &g) {
-        name_to_num = g.name_to_num;
-        adj = g.adj;
+        name_to_num =              
     }
 
+    vertex_num vertex_name_to_num(vertex_name &s){
+        return (*name_to_num)[s];
+    }
+
+/*
     Graph& operator=(const Graph &g){
-        name_to_num = g.name_to_num;
-        adj = g.adj;
-        return *this;
     }
 
     Graph(Graph &&g){
-        name_to_num = move(g.name_to_num);
-        adj = move(g.adj);
     }
 
     Graph& operator=(Graph &&g){
-        name_to_num = move(g.name_to_num);
-        adj = move(g.adj);
-        return *this;
     }
 
     ~Graph() {
@@ -79,12 +74,11 @@ public:
         delete adj;
     }
 
-
+*/
 };
 
 
 int main(){
-
 
 
     return 0;
