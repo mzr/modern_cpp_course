@@ -32,7 +32,7 @@ void print_container(const C &c){
 }
 
 int main(){
-    array<int, 100> a = {1,2,3,4}; 
+    array<int, 4> a = {1,2,3,4}; 
     print_container(a);
     permute_random(a); 
     cout << "\n";

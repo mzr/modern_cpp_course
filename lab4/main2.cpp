@@ -29,18 +29,6 @@
 
 using namespace std;
 
-template <typename Container>
-void f2(const Container& cont, int k, int p) {
-    cout << "f2\n";
-  std::for_each(std::begin(cont), std::end(cont), [&](const auto& x) {
-  //std::for_each(std::begin(cont), std::end(cont), [&](const auto& x) mutable {
-    int times_called = 0; // is it only this-lambda local??
-    if (times_called - p >= 0 && (times_called - p) % k == 0)
-      std::cout << x << " ";
-    times_called++;
-  });
-  std::cout << std::endl;
-}    
 
 int main(){
 

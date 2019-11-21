@@ -15,8 +15,6 @@
 #include <fstream>
 #include <string>
 
-// TODO better generic param passing
-// variadic?
 template <typename Dist, typename ValType, typename P1, typename P2>
 auto rand_arr(P1 param1, P2 param2){
     std::array<ValType, 1000> a;
