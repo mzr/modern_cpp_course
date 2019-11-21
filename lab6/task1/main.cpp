@@ -3,14 +3,30 @@
  */
 
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <array>
 
-template <typename T>
-void permute_random(){
+using namespace std;
 
+template <typename C>
+void permute_random(C &c){
+    random_shuffle(c.begin(), c.end()); 
+}
+
+template <typename C>
+void print_container(const C &c){
+    for(const auto &e : c)
+        cout << e << " ";
+    cout << "\n";    
 }
 
 int main(){
-
+    array<int, 100> a = {1,2,3,4}; 
+    print_container(a);
+    permute_random(a); 
+    cout << "\n";
+    print_container(a);
 
     return 0;
 }

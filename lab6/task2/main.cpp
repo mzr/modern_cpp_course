@@ -46,12 +46,12 @@ int main(){
         rand_arr<std::normal_distribution<>, double>(0.0, 1.0);
     auto uniform_ar = 
         rand_arr<std::uniform_real_distribution<>, double>(0.0, 1.0);
-    auto binom_arr = 
+    auto binom_ar = 
         rand_arr<std::binomial_distribution<>, int>(4, 0.5);
 
     csv_store(normal_ar, "normal.csv");    
-    csv_store(normal_ar, "uiform.csv");    
-    csv_store(normal_ar, "binom.csv");    
+    csv_store(uniform_ar, "uiform.csv");    
+    csv_store(binom_ar, "binom.csv");    
 
 
     return 0;
