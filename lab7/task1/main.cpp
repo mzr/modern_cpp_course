@@ -20,7 +20,6 @@ auto inv_gamma(const std::complex<double> &z, size_t iter) {
         c *= ((1.0 + z/(double)n) * exp(-z/(double)n));
 
     return z*exp(euler_mascheroni*z)*c;
-
 }
 
 
