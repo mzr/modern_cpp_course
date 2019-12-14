@@ -24,6 +24,7 @@ int main(){
         cout.precision(4);
         cout << e << " ";
     });
+    
 
 
     return 0;

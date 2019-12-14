@@ -8,9 +8,37 @@
  */
 
 #include <iostream>
+#include <fstream>
+#include <iterator>
+#include <vector>
+#include <cstdlib>
+#include <type_traits>
+#include <numeric>
 
-int main(){
+int totient(int n){
+    int result{0};
+    for(int i=n; i>0; i--)
+        if(std::gcd(i, n) == 1)
+            result++;
+    return result;
+}
+    
 
+int main(int argc, char **argv){
+    if(argc < 2){
+        std::cout << "Usage: " << argv[0] << ": [k]" << std::endl;
+        return 1;
+    }
+    int k = atoi(argv[1]);
+    
+    std::vector<int> results;
+
+    for(int i=1; i<k; i++)
+        results.emplace_back(totient(i));
+
+    std::ofstream of{"phi.txt", std::ios::out};
+    std::ostream_iterator<int> out_it(of, "; ");
+    std::copy(results.begin(), results.end(), out_it);
 
     return 0;
 }
