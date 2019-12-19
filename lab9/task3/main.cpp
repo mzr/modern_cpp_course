@@ -32,6 +32,7 @@ int main(int argc, char **argv){
             auto filename = path.filename();
             if(names.contains(filename)){
                 std::cout << fs::canonical(path) << " " 
+                          << fs::status(path).permissions() << " "
                           << p.file_size() << std::endl;
                 //names.erase(filename);
             }
