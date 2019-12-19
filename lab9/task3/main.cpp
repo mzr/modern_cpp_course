@@ -31,7 +31,8 @@ int main(int argc, char **argv){
             auto path = p.path();
             auto filename = path.filename();
             if(names.contains(filename)){
-                std::cout << path << std::endl;
+                std::cout << fs::canonical(path) << " " 
+                          << p.file_size() << std::endl;
                 //names.erase(filename);
             }
         }
