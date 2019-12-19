@@ -7,7 +7,8 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
-
+#include <vector>
+#include <unordered_set>
 
 namespace fs = std::filesystem;
 
