@@ -74,8 +74,5 @@ int main(int argc, char **argv){
 
     std::cout << sum_bytes << std::endl;
 
-
-
-
     return 0;
 }
