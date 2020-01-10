@@ -19,7 +19,7 @@ struct Person {
     int height;
 
     double bmi() const {
-        return weight / (height * height);
+        return (double)weight / (height * height);
     }
 };
 
@@ -46,13 +46,41 @@ int main(){
                   << p.surname << " "
                   << p.age << " "
                   << p.weight << " "
-                  << p.height << std::endl;
-
-    // oldest
+                  << p.height << " "
+                  << p.bmi() << std::endl;
     
-    // youngest
+    auto oldest = std::max_element(
+        people.begin(),
+        people.end(),
+        [](const Person &a, const Person &b){
+            return a.age < b.age;
+        }
+    );
+    std::cout << "oldest: " 
+              << oldest->name << " " 
+              << oldest->surname << std::endl;
     
-    // heaviest
+    auto heaviest = std::max_element(
+        people.begin(),
+        people.end(),
+        [](const Person &a, const Person &b){
+            return a.weight < b.weight;
+        }
+    );
+    std::cout << "heaviest: " 
+              << heaviest->name << " " 
+              << heaviest->surname << std::endl;
+    
+    auto heighest = std::max_element(
+        people.begin(),
+        people.end(),
+        [](const Person &a, const Person &b){
+            return a.height< b.height;
+        }
+    );
+    std::cout << "heighest: " 
+              << heighest->name << " " 
+              << heighest->surname << std::endl;
 
     return 0;
 }
