@@ -29,27 +29,6 @@ struct lucas_num<1> {
     static constexpr uint64_t val = 1;
 };
 
-constexpr int lucas(int n){
-    if(n == 0)
-        return 2;
-    if(n == 1)
-        return 1;
-    
-    int val0 = 2;
-    int val1 = 1;
-    int val = 0;
-    
-    while(n >= 2){
-        val = val1 + val0;
-        val0 = val1;
-        val1 = val;
-        
-        n--;
-    }
-
-    return val;
-}
-
 int main(){
     std::cout << lucas_num<0>::val << "\n";
     std::cout << lucas_num<1>::val << "\n";
