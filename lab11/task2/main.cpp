@@ -1,53 +1,33 @@
-/* Wykorzystując metaprogramowanie zdefiniuj szablon obiektu 
- * funkcyjnego, pozwalającego obliczyć na poziomie kompilacji 
- * współczynnik dwumianowy (nk) dla liczb naturalnych 0 ≤ k ≤ n. 
- * Funkcja powinna działać w liniowym czasie O(n).
- */
-
 #include <iostream>
 
-template<size_t n, size_t k>
-struct Binomial;
+template <size_t n, size_t k>
+struct binom;
 
-template<size_t n, size_t k, bool outOfBounds>
-struct BinomialCompute;
-
-template<size_t n, size_t k>
-struct BinomialCompute<n, k, true> {
-
-  static const size_t value = 0;
-};
-
-template<size_t n, size_t k>
-struct BinomialCompute<n, k, false> {
-
-  static const size_t value = (Binomial<n-1,k-1>::value + Binomial<n-1,k>::value);
-};
-
-template<size_t n, size_t k>
-struct Binomial {
-  static const size_t value =  BinomialCompute<n, k, n < k>::value;
+template <size_t n, size_t k>
+struct binom{
+    constexpr static size_t val = (binom<n-1, k-1>::val * n) / k;
 };
 
 template<>
-struct Binomial<0,0> {
-  static const size_t value = 1;
+struct binom<0,0>{
+    constexpr static size_t val = 1;
 };
 
 template<size_t n>
-struct Binomial<n,0> {
-  static const size_t value = 1;
+struct binom<n,0>{
+    constexpr static size_t val = 1;
 };
 
 template<size_t n>
-struct Binomial<n,n> {
-  static const size_t value = 1;
+struct binom<n,n>{
+    constexpr static size_t val = 1;
 };
-
 
 int main(){
-    std::cout << Binomial<5,2>::value << "\n";
-    std::cout << Binomial<6,4>::value << "\n";
+
+    std::cout << binom<5, 2>::val << "\n";
+    std::cout << binom<10, 3>::val << "\n";
+    std::cout << binom<8, 6>::val << "\n";
 
     return 0;
 }
