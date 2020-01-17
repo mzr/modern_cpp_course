@@ -26,7 +26,7 @@ struct binom<n,n>{
 int main(){
 
     std::cout << binom<5, 2>::val << "\n";
-    std::cout << binom<10, 3>::val << "\n";
+    std::cout << binom<100, 50>::val << "\n";
     std::cout << binom<8, 6>::val << "\n";
 
     return 0;

@@ -13,7 +13,6 @@
 #include <iostream>
 #include <cstdint>
 
-
 template <intmax_t N>
 struct lucas_num{
     static constexpr uint64_t val = lucas_num<N-1>::val + lucas_num<N-2>::val;
@@ -39,7 +38,7 @@ int main(){
     std::cout << lucas_num<6>::val << "\n";
     std::cout << lucas_num<7>::val << "\n";
     std::cout << lucas_num<8>::val << "\n";
-    std::cout << lucas_num<9>::val << "\n";
+    std::cout << lucas_num<60>::val << "\n";
 
     return 0;
 }
